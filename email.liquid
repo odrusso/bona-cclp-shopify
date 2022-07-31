@@ -1,8 +1,8 @@
 {% capture boma_address %}
-    Boma New Zealand Ltd
-    367 Moorhouse Avenue
-    Christchurch 8011
-    NEW ZEALAND
+    Boma New Zealand Ltd <br />
+    367 Moorhouse Avenue <br />
+    Christchurch 8011 <br />
+    NEW ZEALAND <br />
 {% endcapture %}
 
 
@@ -54,10 +54,8 @@
                                         <h2>Crusaders Coaching Leadership Programme&trade; powered by Boma</h2>
                                         <br>
                                         <br>
-                                        <h3>Thanks for registering!</h3>
-                                        <br>
-                                        <p> Hi {{ customer.first_name }}</p>
-                                        <p>We look forward to welcoming you to the Crusaders Coaching Leadership Programme&trade;.</p>
+                                        <p> Hi {{ customer.first_name }},</p>
+                                        <p>Thanks for registering for the Crusaders Coaching Leadership Programme&trade;.</p>
                                     </td>
                                 </tr>
                             </table>
@@ -73,37 +71,38 @@
                             <table class="container">
                                 <tr>
                                     <td>
-                                        <h1 style="font-weight: 700">TAX INVOICE</h1>
+                                        <h2 style="font-weight: 700">TAX INVOICE</h2>
                                     </td>
                                 </tr>
                             </table>
                             <br>
-                            <table style="table-layout: fixed" class="container">
+                            <table class="container">
                                 <tr>
-                                    <td style="vertical-align: top">
+                                    <td style="vertical-align: top; width: 16%">
                                         <strong>To</strong>
                                     </td>
-                                    <td style="vertical-align: top">
+                                    <td id="date-cell" style="vertical-align: top; width: 34%">
                                         {{ billing_address | format_address }}
                                     </td>
-                                    <td style="vertical-align: top">
+                                    <td style="vertical-align: top; width: 16%">
                                         <strong>From</strong>
                                     </td>
-                                    <td style="vertical-align: top; color: #777; line-height: 150%; font-size: 16px; margin: 0;">
+                                    <td id="date-cell" style="vertical-align: top; color: #777; line-height: 150%; font-size: 16px; margin: 0; width: 34%">
                                         {{ boma_address }}
                                     </td>
                                 </tr>
+                                <tr style="height: 15px"> <td></td> <td></td> <td></td> <td></td> </tr>
                                 <tr style="height: 30px">
-                                    <td style="vertical-align: top">
-                                        <strong>Order date</strong>
+                                    <td style="vertical-align: top; margin-top: 25px">
+                                        <strong>Date</strong>
                                     </td>
                                     <td style="vertical-align: top; color: #777; line-height: 150%; font-size: 16px; margin: 0;">
-                                        {{ created_at | date: "%d %M %Y" }}
+                                        {{ created_at | date: "%d %b %Y" }}
                                     </td>
                                 </tr>
                                 <tr style="height: 30px">
                                     <td style="vertical-align: top">
-                                        <strong>Order number</strong>
+                                        <strong>Order #</strong>
                                     </td>
                                     <td style="vertical-align: top; color: #777; line-height: 150%; font-size: 16px; margin: 0;">
                                         {{ name }}
@@ -111,7 +110,7 @@
                                 </tr>
                                 <tr style="height: 30px">
                                     <td style="vertical-align: top">
-                                        <strong>NZ GST number</strong>
+                                        <strong>GST #</strong>
                                     </td>
                                     <td style="vertical-align: top; color: #777; line-height: 150%; font-size: 16px; margin: 0;">
                                         126-103-379
@@ -518,3 +517,4 @@
 </table>
 </body>
 </html>
+

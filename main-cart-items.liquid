@@ -51,7 +51,7 @@
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
-    <script src="{{ 'cart_new.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
@@ -321,7 +321,7 @@
                     </table>
 
                     {% if cart.item_count == 1 %}
-                        <br /><p id="singleParticipantLink" style="display: inline" class="cart-attribute__field">If you're registering for someone else, click </p><a id="singleParticipantLinkA" href="javascript:void(0);" onclick="window.setSingleEntry(true)">here</a>
+                        <br /><p id="singleParticipantLink" style="display: inline" class="cart-attribute__field">If you're registering on behalf of the course participant, </p><a id="singleParticipantLinkA" href="javascript:void(0);" onclick="window.setSingleEntry(true)">click here</a>
 
                         <div id="singleParticipantDetails" style="display: none">
 

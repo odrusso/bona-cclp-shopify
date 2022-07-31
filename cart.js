@@ -210,7 +210,7 @@ window.setSingleEntry = (option) => {
     element.children[1].children[0].required = true;
     element.children[2].children[0].required = true;
     element.children[3].children[0].required = true;
-    linkElement.innerText = `If you're registering for yourself, click `;
+    linkElement.innerText = `If you're registering yourself, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(false)`);
   } else {
     element.style.display = "none";
@@ -218,7 +218,7 @@ window.setSingleEntry = (option) => {
     element.children[1].children[0].required = false;
     element.children[2].children[0].required = false;
     element.children[3].children[0].required = false;
-    linkElement.innerText = `If you're registering for somebody else, click `;
+    linkElement.innerText = `If you're registering on behalf of the course participant, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(true)`);
   }
 }
