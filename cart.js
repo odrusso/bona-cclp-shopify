@@ -206,18 +206,12 @@ window.setSingleEntry = (option) => {
 
   if (option === true) {
     element.style.display = "block";
-    element.children[0].children[0].required = true;
-    element.children[1].children[0].required = true;
-    element.children[2].children[0].required = true;
-    element.children[3].children[0].required = true;
+    element.getElementsByTagName("input").forEach((element) => element.required = true);
     linkElement.innerText = `If you're registering yourself, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(false)`);
   } else {
     element.style.display = "none";
-    element.children[0].children[0].required = false;
-    element.children[1].children[0].required = false;
-    element.children[2].children[0].required = false;
-    element.children[3].children[0].required = false;
+    element.getElementsByTagName("input").forEach((element) => element.required = false);
     linkElement.innerText = `If you're registering on behalf of the course participant, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(true)`);
   }
