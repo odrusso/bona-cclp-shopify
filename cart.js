@@ -203,14 +203,17 @@ window.setSingleEntry = (option) => {
   const element = document.getElementById("singleParticipantDetails");
   const linkElement = document.getElementById("singleParticipantLink");
   const linkAElement = document.getElementById("singleParticipantLinkA");
+  const suffixElement = document.getElementById("singleParticipantSuffix");
 
   if (option === true) {
     element.style.display = "block";
+    suffixElement.style.display = "inline";
     element.getElementsByTagName("input").forEach((element) => element.required = true);
     linkElement.innerText = `If you're registering yourself, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(false)`);
   } else {
     element.style.display = "none";
+    suffixElement.style.display = "none";
     element.getElementsByTagName("input").forEach((element) => element.required = false);
     linkElement.innerText = `If you're registering on behalf of the course participant, `;
     linkAElement.setAttribute("onclick", `window.setSingleEntry(true)`);
