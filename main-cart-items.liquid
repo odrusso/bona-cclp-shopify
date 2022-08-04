@@ -17,6 +17,37 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     }
     }
+
+    .attinput {
+    margin-bottom: 10px;
+    margin-right: 8px;
+    padding: 10px;
+    background-color: transparent;
+    font-size: 1.4rem;
+    font-weight: 500;
+    opacity: 0.85;
+    border: 0;
+    box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground),var(--inputs-border-opacity));
+    min-height: calc((var(--inputs-border-width) * 2) + 4.5rem);
+    }
+
+    .attinput:focus {
+    outline: 0;
+    border: 0;
+    }
+
+    .attinput.half {
+    width: 250px;
+    }
+
+    .attinput.full {
+    width: 512px;
+    }
+
+    .cart-attribute__field {
+    display: inline;
+    }
+
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
@@ -288,12 +319,99 @@
                         {%- endfor -%}
                         </tbody>
                     </table>
-                {%- endif -%}
+
+                    {% if cart.item_count == 1 %}
+                        <br />
+                        <p id="singleParticipantLink" style="display: inline" class="cart-attribute__field">If you're registering yourself, </p><a id="singleParticipantLinkA" href="javascript:void(0);" onclick="window.setSingleEntry(false)">click here</a> <p id="singleParticipantSuffix" style="display: inline"> to skip this step.</p>
+
+                        <div id="singleParticipantDetails" style="display: block">
+
+                            <h4>If you're registering for someone else, please enter the programme participant's details below.</h4>
+
+                            <p class="cart-attribute__field">
+                                <input required class="attinput half required" id="attendee-1-first-name" type="text"
+                                       placeholder="First Name *" name="attributes[Attendee 1 First Name]"
+                                       value="{{ cart.attributes["Attendee 1 First Name"] }}">
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                <input required class="attinput half required" id="attendee-1-last-name" type="text"
+                                       placeholder="Last Name *" name="attributes[Attendee 1 Last Name]"
+                                       value="{{ cart.attributes["Attendee 1 Last Name"] }}" >
+
+                                <br/>
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                <input required class="attinput full required" id="attendee-1-email" type="email"
+                                       placeholder="Email Address *" name="attributes[Attendee 1 Email]"
+                                       value="{{ cart.attributes["Attendee 1 Email"] }}" >
+                                <br/>
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                <input required class="attinput full required" id="attendee-1-phone" type="tel" placeholder="Mobile Phone *"
+                                       name="attributes[Attendee 1 Phone]"
+                                       value="{{ cart.attributes["Attendee 1 Phone"] }}" >
+                                <br/><br/>
+                            <p>* Required.</p>
+                            </p>
+
+                        </div>
+
+                    {% else %}
+
+                        <h4>Please enter the details below for each programme participant.</h4>
+
+
+                        {%- for itt in (1..cart.item_count) %}
+
+                            <p>Participant #{{ itt }}</p>
+
+                            <p class="cart-attribute__field">
+                                {% assign firstname_id = "Attendee " | append: itt | append: " First Name" %}
+                                <input required class="attinput half required" id="attendee-{{ itt }}-first-name" type="text"
+                                       placeholder="First Name *" name="attributes[{{ firstname_id }}]"
+                                       value="{{ cart.attributes[firstname_id] }}">
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                {% assign lastname_id = "Attendee " | append: itt | append: " Last Name" %}
+                                <input required class="attinput half required" id="attendee-{{ itt }}-last-name" type="text"
+                                       placeholder="Last Name *" name="attributes[{{ lastname_id }}]"
+                                       value="{{ cart.attributes[lastname_id] }}" >
+
+                                <br/>
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                {% assign email_id = "Attendee " | append: itt | append: " Email" %}
+                                <input required class="attinput full required" id="attendee-{{ itt }}-email" type="email"
+                                       placeholder="Email Address *" name="attributes[{{ email_id }}]"
+                                       value="{{ cart.attributes[email_id] }}" >
+                                <br/>
+                            </p>
+
+                            <p class="cart-attribute__field">
+                                {% assign phone_id = "Attendee " | append: itt | append: " Phone" %}
+                                <input required class="attinput full required" id="attendee-{{ itt }}-phone" type="tel" placeholder="Mobile Phone *"
+                                       name="attributes[{{ phone_id }}]"
+                                       value="{{ cart.attributes[phone_id] }}" >
+                                <br/><br/>
+                            </p>
+
+                        {%- endfor %}
+                            <p>* Required.</p>
+
+                    {% endif %}
+
+                {% endif %}
             </div>
         </div>
 
         <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
         <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+
     </form>
 </cart-items>
 

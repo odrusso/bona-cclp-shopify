@@ -28,7 +28,12 @@ class CartItems extends HTMLElement {
   }
 
   onChange(event) {
-    this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'));
+    if (event.target.className === "quantity__input") {
+      this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'));
+    } else {
+      const fieldName = event.target.name.slice(11, event.target.name.length - 1)
+      this.updateAttribute(fieldName, event.target.value);
+    }
   }
 
   getSectionsToRender() {
@@ -56,12 +61,33 @@ class CartItems extends HTMLElement {
     ];
   }
 
-  updateQuantity(line, quantity, name) {
+  updateAttribute(attName, attValue) {
+    const body = JSON.stringify({
+      attributes: {
+        [attName]: attValue
+      }
+    });
+
+    fetch(window.Shopify.routes.root + 'cart/update.js', {...fetchConfig(), ...{ body }})
+      .catch(() => {
+        this.querySelectorAll('.loading-overlay').forEach((overlay) => overlay.classList.add('hidden'));
+        const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
+        errors.textContent = window.cartStrings.error;
+      });
+  }
+
+
+  updateQuantity(line, quantity, name, fieldName = "quantity") {
+    // if (isNaN(Number(quantity))) {
+    //   console.error(`Tried to update quantity value with: ${quantity}`);
+    //   return;
+    // }
+
     this.enableLoading(line);
 
     const body = JSON.stringify({
       line,
-      quantity,
+      [fieldName]: quantity,
       sections: this.getSectionsToRender().map((section) => section.section),
       sections_url: window.location.pathname
     });
@@ -167,3 +193,29 @@ if (!customElements.get('cart-note')) {
     }
   });
 };
+
+window.showSingleEntry = false;
+
+window.setSingleEntry = (option) => {
+  console.log(`single entry ${option} button clicked!`)
+  window.showSingleEntry = option;
+
+  const element = document.getElementById("singleParticipantDetails");
+  const linkElement = document.getElementById("singleParticipantLink");
+  const linkAElement = document.getElementById("singleParticipantLinkA");
+  const suffixElement = document.getElementById("singleParticipantSuffix");
+
+  if (option === true) {
+    element.style.display = "block";
+    suffixElement.style.display = "inline";
+    element.getElementsByTagName("input").forEach((element) => element.required = true);
+    linkElement.innerText = `If you're registering yourself, `;
+    linkAElement.setAttribute("onclick", `window.setSingleEntry(false)`);
+  } else {
+    element.style.display = "none";
+    suffixElement.style.display = "none";
+    element.getElementsByTagName("input").forEach((element) => element.required = false);
+    linkElement.innerText = `If you're registering on behalf of the course participant, `;
+    linkAElement.setAttribute("onclick", `window.setSingleEntry(true)`);
+  }
+}
