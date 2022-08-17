@@ -322,20 +322,20 @@
 
                     {% if cart.item_count == 1 %}
                         <br />
-                        <p id="singleParticipantLink" style="display: inline" class="cart-attribute__field">If you're registering yourself, </p><a id="singleParticipantLinkA" href="javascript:void(0);" onclick="window.setSingleEntry(false)">click here</a> <p id="singleParticipantSuffix" style="display: inline"> to skip this step.</p>
+                        <p id="singleParticipantLink" style="display: inline" class="cart-attribute__field">If you're registering on behalf of the course participant, </p><a id="singleParticipantLinkA" href="javascript:void(0);" onclick="window.setSingleEntry(true)">click here</a> <p id="singleParticipantSuffix" style="display: none"> to skip this step.</p>
 
-                        <div id="singleParticipantDetails" style="display: block">
+                        <div id="singleParticipantDetails" style="display: none">
 
                             <h4>If you're registering for someone else, please enter the programme participant's details below.</h4>
 
                             <p class="cart-attribute__field">
-                                <input required class="attinput half required" id="attendee-1-first-name" type="text"
+                                <input class="attinput half required" id="attendee-1-first-name" type="text"
                                        placeholder="First Name *" name="attributes[Attendee 1 First Name]"
                                        value="{{ cart.attributes["Attendee 1 First Name"] }}">
                             </p>
 
                             <p class="cart-attribute__field">
-                                <input required class="attinput half required" id="attendee-1-last-name" type="text"
+                                <input class="attinput half required" id="attendee-1-last-name" type="text"
                                        placeholder="Last Name *" name="attributes[Attendee 1 Last Name]"
                                        value="{{ cart.attributes["Attendee 1 Last Name"] }}" >
 
@@ -343,14 +343,14 @@
                             </p>
 
                             <p class="cart-attribute__field">
-                                <input required class="attinput full required" id="attendee-1-email" type="email"
+                                <input class="attinput full required" id="attendee-1-email" type="email"
                                        placeholder="Email Address *" name="attributes[Attendee 1 Email]"
                                        value="{{ cart.attributes["Attendee 1 Email"] }}" >
                                 <br/>
                             </p>
 
                             <p class="cart-attribute__field">
-                                <input required class="attinput full required" id="attendee-1-phone" type="tel" placeholder="Mobile Phone *"
+                                <input class="attinput full required" id="attendee-1-phone" type="tel" placeholder="Mobile Phone *"
                                        name="attributes[Attendee 1 Phone]"
                                        value="{{ cart.attributes["Attendee 1 Phone"] }}" >
                                 <br/><br/>
